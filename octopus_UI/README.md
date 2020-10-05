@@ -1,6 +1,6 @@
 # octopus_UI
 
-A new Flutter project.
+Our mobile application
 
 ## Getting Started
 
