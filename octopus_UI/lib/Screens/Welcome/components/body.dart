@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     new Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
+      Navigator.push (
               context,
               MaterialPageRoute(
                 builder: (context) {

@@ -5,6 +5,7 @@ import 'package:octopus_UI/components/already_have_an_account_acheck.dart';
 import 'package:octopus_UI/components/rounded_button.dart';
 import 'package:octopus_UI/components/rounded_input_field.dart';
 import 'package:octopus_UI/components/rounded_password_field.dart';
+import 'package:flutter/foundation.dart';
 //import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
@@ -32,14 +33,18 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                debugPrint('movieTitle: $value');
+              },
             ),
             RoundedPasswordField(
               onChanged: (value) {},
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
