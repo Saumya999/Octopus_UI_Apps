@@ -3,23 +3,27 @@ import 'package:octopus_UI/components/text_field_container.dart';
 import 'package:octopus_UI/constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+  //final ValueChanged<String> onChanged;
   final TextEditingController controller;
   final bool errorText;
+  final Function press;
+  final bool isVisible;
+  final bool obscureText;
   const RoundedPasswordField({
     Key key,
-    this.onChanged,
     this.controller,
-    this.errorText
+    this.errorText,
+    this.press,
+    this.obscureText,
+    this.isVisible
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
-        obscureText: true,
+        obscureText: obscureText,
         controller: controller,
-        //onChanged: onChanged,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: "Password",
@@ -28,9 +32,14 @@ class RoundedPasswordField extends StatelessWidget {
             Icons.lock,
             color: kPrimaryColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: kPrimaryColor,
+          suffixIcon: IconButton(
+            icon: Icon (
+              isVisible ?
+              Icons.visibility : Icons.visibility_off,
+              color: kPrimaryColor,
+
+            ),
+            onPressed: press,
           ),
           border: InputBorder.none,
         ),

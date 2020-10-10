@@ -33,6 +33,8 @@ class _Body extends State<Body> {
 
   bool errorText = false;
   bool loginFailed = false;
+  bool obscureText = true;
+  bool isVisible = false;
 
    login(String email, String password) async {
       Login loginClass = new Login();
@@ -97,6 +99,14 @@ class _Body extends State<Body> {
             RoundedPasswordField(
             controller: passwordController,
               errorText: setErrorText(),
+              obscureText: obscureText,
+              isVisible: isVisible,
+              press: (){
+                setState(() {
+                  isVisible = !isVisible;
+                  obscureText = !obscureText;
+                });
+              },
             ),
             RoundedButton(
               text: "LOGIN",
