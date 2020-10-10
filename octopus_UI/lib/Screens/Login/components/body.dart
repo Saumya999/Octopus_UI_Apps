@@ -23,7 +23,7 @@ class Body extends StatefulWidget {
 
 class _Body extends State<Body> {
 
-  Future<User> user;
+  User user = new User();
 
   @override
   void initState() {
@@ -31,10 +31,19 @@ class _Body extends State<Body> {
 //    user = login('ss', 'ss');
   }
 
-  login(String email, String password) {
+   login(String email, String password) async {
       Login loginClass = new Login();
-      user = loginClass.signIn(email, password);
-      return user;
+      user = await loginClass.signIn(email, password);
+      if (user.email != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return SignUpScreen();
+            },
+          ),
+        );
+      }
   }
 
   final TextEditingController emailController = new TextEditingController();
@@ -72,20 +81,8 @@ class _Body extends State<Body> {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {
-                user = login(emailController.text, passwordController.text);
-                if (user != null) {
-                  print('---------------------------------------- $user');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignUpScreen();
-                      },
-                    ),
-                  );
-                }
-              },
+              press: () => login(emailController.text, passwordController.text)
+              ,
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
