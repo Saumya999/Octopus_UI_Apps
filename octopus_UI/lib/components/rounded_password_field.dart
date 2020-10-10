@@ -5,10 +5,12 @@ import 'package:octopus_UI/constants.dart';
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
+  final bool errorText;
   const RoundedPasswordField({
     Key key,
     this.onChanged,
-    this.controller
+    this.controller,
+    this.errorText
   }) : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class RoundedPasswordField extends StatelessWidget {
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: "Password",
+          errorText: errorText ? "Invalid Password" : null,
           icon: Icon(
             Icons.lock,
             color: kPrimaryColor,

@@ -7,13 +7,15 @@ class RoundedInputField extends StatelessWidget {
   final IconData icon;
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
+  final bool errorText;
 
   const RoundedInputField({
     Key key,
     this.hintText,
     this.icon = Icons.person,
     this.onChanged,
-    this.controller
+    this.controller,
+    this.errorText
   }) : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class RoundedInputField extends StatelessWidget {
           ),
           hintText: hintText,
           border: InputBorder.none,
+          errorText: errorText ? "Invalid Username" : null
         ),
       ),
     );

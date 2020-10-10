@@ -31,6 +31,9 @@ class _Body extends State<Body> {
 //    user = login('ss', 'ss');
   }
 
+  bool errorText = false;
+  bool loginFailed = false;
+
    login(String email, String password) async {
       Login loginClass = new Login();
       user = await loginClass.signIn(email, password);
@@ -43,7 +46,26 @@ class _Body extends State<Body> {
             },
           ),
         );
-      }
+      } else {
+        emailController.text = "";
+        passwordController.text = "";
+        setState(() {
+          loginFailed = true;
+        });
+   }
+  }
+
+  bool setErrorText () {
+     if ((emailController.text == "" || passwordController.text == "") && loginFailed) {
+       setState(() {
+         errorText = true;
+       });
+     } else {
+       setState(() {
+         errorText = false;
+       });
+     }
+     return errorText;
   }
 
   final TextEditingController emailController = new TextEditingController();
@@ -68,16 +90,13 @@ class _Body extends State<Body> {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
-              hintText: "Your Email",
-//              onChanged: (value) {
-//                print(value);
-//              },
+              hintText: "Email Id",
               controller: emailController,
+              errorText: setErrorText(),
             ),
             RoundedPasswordField(
-//              onChanged: (value) {
-//              },
             controller: passwordController,
+              errorText: setErrorText(),
             ),
             RoundedButton(
               text: "LOGIN",

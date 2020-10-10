@@ -11,8 +11,10 @@ class Login {
       "email": email,
       "password": password
     });
+
     Map<String,String> headers = {'Content-Type':'application/json',
-      'Access-Control-Allow-Origin': '*'};
+      'Access-Control-Allow-Origin': '*'
+    };
 
     final loginResponse = await http.post('https://golden-office-server.herokuapp.com/customer/v1/login', body: payload,
     headers: headers);
@@ -22,6 +24,6 @@ class Login {
     }
 
 
-    throw Exception('Failed to load post');
+    return User.fromJson(json.decode(loginResponse.body));
   }
 }
