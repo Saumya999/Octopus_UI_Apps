@@ -10,6 +10,14 @@ getItemType(String type) {
 
 }
 
+passwordValidatorFunc(String password,String confirmPassword) {
+  if(password!=confirmPassword) {
+    return true;
+  }
+  else
+    return false;
+}
+
 getSuffixIconForPassword(String type) {
   if(type == confirmPassword)
     return false;

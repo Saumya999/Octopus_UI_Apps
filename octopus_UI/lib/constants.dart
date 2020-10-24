@@ -7,3 +7,5 @@ const url = "https://golden-office-server.herokuapp.com";
 const person = "person";
 const confirmPassword = "Confirm Password";
 const email = "email";
+const validatorText = "Required";
+const passwordValidatorText = "Password  doesn't match.";
