@@ -8,10 +8,9 @@ import 'package:octopus_UI/components/already_have_an_account_acheck.dart';
 import 'package:octopus_UI/components/rounded_button.dart';
 import 'package:octopus_UI/components/rounded_input_field.dart';
 import 'package:octopus_UI/components/rounded_password_field.dart';
-//import 'package:flutter_svg/svg.dart';
-
 import 'package:octopus_UI/Common-API-Services/LoginAPI/login_api_service.dart';
 import 'package:octopus_UI/Common-API-Services/LoginAPI/login_api_model.dart';
+
 
 class Body extends StatefulWidget {
   Body({Key key}) : super(key: key);
@@ -93,10 +92,12 @@ class _Body extends State<Body> {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Email Id",
+              type: "email",
               controller: emailController,
               errorText: setErrorText(),
             ),
             RoundedPasswordField(
+              hintText: "Password",
             controller: passwordController,
               errorText: setErrorText(),
               obscureText: obscureText,
