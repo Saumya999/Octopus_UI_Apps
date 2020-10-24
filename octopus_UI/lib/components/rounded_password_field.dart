@@ -4,13 +4,14 @@ import 'package:octopus_UI/constants.dart';
 import 'package:octopus_UI/components/Utility.dart';
 
 class RoundedPasswordField extends StatelessWidget {
-  //final ValueChanged<String> onChanged;
   final TextEditingController controller;
   final bool errorText;
   final Function press;
   final bool isVisible;
   final bool obscureText;
   final String hintText;
+  final bool passwordValidator;
+
   const RoundedPasswordField({
     Key key,
     this.controller,
@@ -19,18 +20,19 @@ class RoundedPasswordField extends StatelessWidget {
     this.obscureText,
     this.isVisible,
     this.hintText,
+    this.passwordValidator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: obscureText,
         controller: controller,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: hintText,
-          errorText: errorText ? "Invalid Password" : null,
+          errorText: null,
           icon: Icon(
             Icons.lock,
             color: kPrimaryColor,
@@ -45,9 +47,21 @@ class RoundedPasswordField extends StatelessWidget {
             ),
             onPressed: press,
           ):null,
-          border: InputBorder.none,
+          border: InputBorder.none,labelText: hintText,
         ),
+
+          validator:(value) {
+            if (value.isEmpty) {
+              return validatorText;
+            } else if(passwordValidator ) {
+              return passwordValidatorText;
+            } else {
+              return null;
+            }
+          }
+
       ),
+
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:octopus_UI/Screens/Login/login_screen.dart';
 import 'package:octopus_UI/Screens/Signup/components/background.dart';
+import 'package:octopus_UI/components/Utility.dart';
 import 'package:octopus_UI/components/already_have_an_account_acheck.dart';
 import 'package:octopus_UI/components/rounded_button.dart';
 import 'package:octopus_UI/components/rounded_input_field.dart';
@@ -19,9 +20,7 @@ class Body extends StatefulWidget {
 
 
 class _Body extends State<Body> {
-
-
-
+  final formKey = GlobalKey<FormState>();
   NewUser user = new NewUser();
   @override
   void initState() {
@@ -50,8 +49,8 @@ class _Body extends State<Body> {
   bool obscureText = true;
   bool isVisible = false;
 
-  signUpScreen(String firstName, String lastName,String email,String password) async {
-    if(firstName != "" && lastName != "" && email != "" && password != "") {
+  signUpScreen(String firstName, String lastName,String email,String password,String confirmPassword) async {
+    if(!passwordValidatorFunc(password, confirmPassword) && (firstName!=null && lastName!= null && password!=null && confirmPassword!=null)) {
     Signup signupClass = new Signup();
     user = await signupClass.signUp(firstName, lastName, email, password);
     //if (user.email != null) {
@@ -64,10 +63,6 @@ class _Body extends State<Body> {
         ),
       );
      } else {
-      // if (emailController.text != "") ? emailController.text : null;
-      // passwordController.text = "";
-      // firstNameController.text ="";
-      // lastNameController.text ="";
       setState(() {
         signUpFailed = true;
       });
@@ -87,10 +82,20 @@ class _Body extends State<Body> {
     return errorText;
   }
 
+  void validate() {
+    if(formKey.currentState.validate()) {
+      print("Validated");
+    } else {
+      print("Not");
+    }
+  }
+
+
   final TextEditingController firstNameController = new TextEditingController();
   final TextEditingController lastNameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController confirmPasswordController = new TextEditingController();
 
 //class Body extends StatelessWidget {
   @override
@@ -98,6 +103,8 @@ class _Body extends State<Body> {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
+        child : Form (
+          key: formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -135,6 +142,7 @@ class _Body extends State<Body> {
               errorText: setErrorText(),
               obscureText: obscureText,
               isVisible: isVisible,
+              passwordValidator: false,
               press: (){
                 setState(() {
                   isVisible = !isVisible;
@@ -144,14 +152,16 @@ class _Body extends State<Body> {
             ),
             RoundedPasswordField(
               hintText: "Confirm Password",
+              controller: confirmPasswordController,
               obscureText: true,
               isVisible: false,
               errorText: false,
-              press: (){},
+              passwordValidator:passwordValidatorFunc("${passwordController.text}", "${confirmPasswordController.text}"),
             ),
             RoundedButton(
               text: "SIGNUP",
-              press: () => signUpScreen(firstNameController.text, lastNameController.text,emailController.text, passwordController.text),
+              press: () => { validate(),
+              signUpScreen(firstNameController.text, lastNameController.text,emailController.text, passwordController.text,confirmPasswordController.text)},
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -169,6 +179,7 @@ class _Body extends State<Body> {
             ),
             //OrDivider()
           ],
+        ),
         ),
       ),
     );

@@ -24,22 +24,29 @@ class RoundedInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
         controller: controller,
         decoration: InputDecoration(
-
           icon: Icon(
             getItemType(type),
             color: kPrimaryColor,
           ),
           hintText: hintText,
-          border: InputBorder.none,
-          errorText: errorText ? "Invalid Username" : null
+            border: InputBorder.none,labelText: hintText,
+            errorText: null
         ),
+          validator:(value) {
+            if (value.isEmpty) {
+              return validatorText;
+            } else {
+              return null;
+            }
+          }
       ),
     );
+
   }
 }
 
